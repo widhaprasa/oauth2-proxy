@@ -2,7 +2,7 @@ package utils
 
 import (
 	"context"
-	"net/url"
+	"strings"
 
 	"github.com/oauth2-proxy/oauth2-proxy/v7/providers"
 )
@@ -35,18 +35,25 @@ func AppendProviderIDToContext(ctx context.Context, providerID string) context.C
 
 // injects provider-id in a url
 func InjectProviderID(pid string, uri string) string {
+	// Replace `ProviderID` with the provider id for Redirect Url
+	uri = strings.Replace(uri, "ProviderID", pid, 1)
+	return uri
+	// Disable injects provider-id completely
+
 	// if empty provider-id, no need to inject it since empty provider-id is loaded when it's not found in the request
-	if pid == "" {
-		return uri
-	}
-	u, err := url.Parse(uri)
-	if err != nil {
-		return uri
-	}
-	q := u.Query()
-	q.Set(DefaultProviderIDQueryParam, pid)
-	u.RawQuery = q.Encode()
-	return u.String()
+	// if pid == "" {
+	// 	return uri
+	// }
+	// Replace `ProviderID` with the provider id for Redirect Url
+	// uri = strings.Replace(uri, "ProviderID", pid, 1)
+	// u, err := url.Parse(uri)
+	// if err != nil {
+	// 	return uri
+	// }
+	// q := u.Query()
+	// q.Set(DefaultProviderIDQueryParam, pid)
+	// u.RawQuery = q.Encode()
+	// return u.String()
 }
 
 // extracts provider stored in a context

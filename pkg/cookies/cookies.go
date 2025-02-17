@@ -46,7 +46,7 @@ func MakeCookieFromOptions(req *http.Request, name string, value string, opts *o
 	c := &http.Cookie{
 		Name:     name,
 		Value:    value,
-		Path:     opts.Path,
+		Path:     opts.AppliedPath(providerID),
 		Domain:   domain,
 		HttpOnly: opts.HTTPOnly,
 		Secure:   opts.Secure,

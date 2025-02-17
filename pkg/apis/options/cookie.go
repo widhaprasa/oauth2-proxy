@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"sort"
+	"strings"
 	"text/template"
 	"time"
 
@@ -46,6 +47,11 @@ func (c *Cookie) Domains(providerID string) []string {
 	})
 
 	return domains
+}
+
+func (c *Cookie) AppliedPath(providerID string) string {
+	// Replace `ProviderID` with the provider id for Cookie Path
+	return strings.Replace(c.Path, "ProviderID", providerID, 1)
 }
 
 func (c *Cookie) Init() error {
